@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+        <EditText
+                android:id="@+id/edittext"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:padding="10dp"
+                android:textSize="20sp"
+                android:textColor="#363535"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:background="@drawable/text_shape"
+                android:hint="Enter Meal" />
+
+        <ImageButton
+                android:id="@+id/search"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_gravity="right"
+                android:background="#fff"
+                android:layout_margin="5dp"
+                android:gravity="right"
+                android:padding="10dp"
+                android:src="@drawable/ic_search_black_24dp"
+                android:text="search" />
+
+    </LinearLayout>
+
+    <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp"/>
+    </LinearLayout>-->
+    <include layout="@layout/content_main"/>
+
+</LinearLayout>
