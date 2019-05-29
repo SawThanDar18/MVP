@@ -1,15 +1,9 @@
 package com.example.mvp.network
 
-import com.example.mvp.R
 import com.example.mvp.events.RestApiEvents
-import com.example.mvp.mvp.models.MealsModel
-import com.example.mvp.mvp.presenters.LatestMealsPresenter
-import com.example.mvp.mvp.views.LatestMealsView
 import com.example.mvp.ui.activities.Search_Activity
 import com.example.mvp.ui.utils.AppConstant
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.search_activity.*
-import kotlinx.android.synthetic.main.search_activity.view.*
 import okhttp3.OkHttpClient
 import org.greenrobot.eventbus.EventBus
 import retrofit2.Call
@@ -81,9 +75,9 @@ open class MealDataImpl private constructor() : MealData{
         })
     }
 
-    override fun getSearchMeals(){
+    override fun getSearchMeals(searchValue: String) {
 
-        mealApi.getSearchMeals().enqueue(object : Callback<LatestMealResponse> {
+        mealApi.getSearchMeals(searchValue).enqueue(object : Callback<LatestMealResponse> {
             override fun onFailure(call: Call<LatestMealResponse>, t: Throwable) {
                 EventBus.getDefault()
                     .post(
@@ -115,8 +109,8 @@ open class MealDataImpl private constructor() : MealData{
         })
     }
 
-    override fun getDetailMeals() {
-        mealApi.getDetailMeals("i").enqueue(object : Callback<LatestMealResponse>{
+    override fun getDetailMeals(value1 : String) {
+        mealApi.getDetailMeals(value1).enqueue(object : Callback<LatestMealResponse>{
             override fun onFailure(call: Call<LatestMealResponse>, t: Throwable) {
                 EventBus.getDefault()
                     .post(

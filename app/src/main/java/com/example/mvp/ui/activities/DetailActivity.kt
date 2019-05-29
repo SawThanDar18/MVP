@@ -4,26 +4,27 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.widget.GridLayout
+import android.widget.TextView
 import android.widget.Toast
 import com.example.mvp.R
 import com.example.mvp.data.Meal
 import com.example.mvp.mvp.presenters.LatestMealsPresenter
 import com.example.mvp.mvp.views.LatestMealsView
 import com.example.mvp.ui.adapters.DetailAdapter
-import com.example.mvp.ui.adapters.MealsAdapter
 import kotlinx.android.synthetic.main.content_main.*
 
 class DetailActivity : AppCompatActivity(), LatestMealsView {
 
     private lateinit var presenter: LatestMealsPresenter
     private lateinit var adapter: DetailAdapter
+    private lateinit var text_detail : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail_activity)
 
         presenter = LatestMealsPresenter(this)
-        presenter.startLoadingDetailMeals()
+        presenter.startLoadingLatestMeals()
 
         adapter = DetailAdapter(this)
         rvMeals.adapter = adapter
@@ -35,8 +36,10 @@ class DetailActivity : AppCompatActivity(), LatestMealsView {
         }
 
         val bundle : Bundle? = intent.extras
-        val value = bundle!!.getString("id")
+        val value1 = bundle!!.getString("id")
         val id : String = intent.getStringExtra("id")
+
+        presenter.startLoadingDetailMeals(value1)
     }
 
     override fun displayMeals(meal: List<Meal>) {

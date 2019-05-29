@@ -1,6 +1,5 @@
 package com.example.mvp.network
 
-import com.example.mvp.data.Meal
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -8,7 +7,7 @@ import retrofit2.http.Query
 interface MealApi {
 
     @GET("api/json/v1/1/latest.php")
-    fun getLatestMeals() : Call<LatestMealResponse>
+    fun getLatestMeals(): Call<LatestMealResponse>
 
     @GET("api/json/v1/1/search.php/")
     fun getSearchMeals(@Query("s") keyword : String) : Call<LatestMealResponse>

@@ -1,6 +1,5 @@
 package com.example.mvp.ui.activities
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -41,10 +40,11 @@ class Search_Activity : AppCompatActivity(), LatestMealsView, ItemClickListener 
         }
 
         search.setOnClickListener {
-            presenter.startLoadingSearchMeals()
+            val searchValue = edittext.text.toString()
+            presenter.startLoadingSearchMeals(searchValue)
         }
 
-        MealDataImpl.getInstance().getDetailMeals()
+        MealDataImpl.getInstance().getDetailMeals(value1 = "id")
     }
 
     override fun displayMeals(meal: List<Meal>) {

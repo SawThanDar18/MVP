@@ -18,14 +18,14 @@ class LatestMealsPresenter constructor(val mView : LatestMealsView){
         MealsModel.getInstance().getLatestMeals()
     }
 
-    fun startLoadingSearchMeals(){
+    fun startLoadingSearchMeals(searchValue: String) {
         mView.showLoading()
-        MealsModel.getInstance().getSearchMeals()
+        MealsModel.getInstance().getSearchMeals(searchValue)
     }
 
-    fun startLoadingDetailMeals(){
-        mView.showLoading()
-        MealsModel.getInstance().getDetailMeals()
+    fun startLoadingDetailMeals(value1 : String) {
+        //mView.showLoading()
+        MealsModel.getInstance().getDetailMeals(value1)
     }
 
     fun onStop(){

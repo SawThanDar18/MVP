@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity(), LatestMealsView, ItemClickListener {
             presenter.startLoadingLatestMeals()
         }
 
-        MealDataImpl.getInstance().getDetailMeals()
+        MealDataImpl.getInstance().getDetailMeals(value1 = "id")
     }
 
     override fun displayMeals(meal: List<Meal>) {

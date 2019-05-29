@@ -3,6 +3,6 @@ package com.example.mvp.network
 interface MealData {
 
     fun getLatestMeals()
-    fun getSearchMeals()
-    fun getDetailMeals()
+    fun getSearchMeals(searchValue: String)
+    fun getDetailMeals(value1 : String)
 }

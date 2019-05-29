@@ -19,11 +19,11 @@ class MealsModel{
         MealDataImpl.getInstance().getLatestMeals()
     }
 
-   fun getSearchMeals(){
-        MealDataImpl.getInstance().getSearchMeals()
+   fun getSearchMeals(searchValue: String) {
+        MealDataImpl.getInstance().getSearchMeals(searchValue)
     }
 
-    fun getDetailMeals(){
-        MealDataImpl.getInstance().getDetailMeals()
+    fun getDetailMeals(value1 : String) {
+        MealDataImpl.getInstance().getDetailMeals(value1)
     }
 }
