@@ -1,5 +1,6 @@
 package com.example.mvp.mvp.models
 
+import android.widget.TextView
 import com.example.mvp.network.MealDataImpl
 
 class MealsModel{
@@ -23,7 +24,7 @@ class MealsModel{
         MealDataImpl.getInstance().getSearchMeals(searchValue)
     }
 
-    fun getDetailMeals(value1 : String) {
-        MealDataImpl.getInstance().getDetailMeals(value1)
+    fun getDetailMeals(value : String) {
+        MealDataImpl.getInstance().getDetailMeals(value)
     }
 }

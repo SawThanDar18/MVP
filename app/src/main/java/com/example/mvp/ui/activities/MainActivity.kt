@@ -15,6 +15,7 @@ import com.example.mvp.network.MealDataImpl
 import com.example.mvp.ui.adapters.MealsAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.search_activity.*
 
 class MainActivity : AppCompatActivity(), LatestMealsView, ItemClickListener {
 
@@ -44,11 +45,11 @@ class MainActivity : AppCompatActivity(), LatestMealsView, ItemClickListener {
             presenter.startLoadingLatestMeals()
         }
 
-        MealDataImpl.getInstance().getDetailMeals(value1 = "id")
+        MealDataImpl.getInstance().getDetailMeals(value = "id")
     }
 
     override fun displayMeals(meal: List<Meal>) {
-       adapter.setNewData(meal)
+        adapter.setNewData(meal)
     }
 
     override fun onClicked(id: String) {
@@ -82,5 +83,10 @@ class MainActivity : AppCompatActivity(), LatestMealsView, ItemClickListener {
     override fun onStop() {
         super.onStop()
         presenter.onStop()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.startLoadingLatestMeals()
     }
 }

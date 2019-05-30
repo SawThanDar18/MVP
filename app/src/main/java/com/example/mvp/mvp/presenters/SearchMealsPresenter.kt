@@ -2,20 +2,21 @@ package com.example.mvp.mvp.presenters
 
 import com.example.mvp.events.RestApiEvents
 import com.example.mvp.mvp.models.MealsModel
-import com.example.mvp.mvp.views.LatestMealsView
+import com.example.mvp.mvp.views.SearchMealsView
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
-class LatestMealsPresenter constructor(val mView : LatestMealsView){
+class SearchMealsPresenter constructor(val mView : SearchMealsView) {
+
     fun onStart(){
         if(!EventBus.getDefault().isRegistered(this)){
             EventBus.getDefault().register(this)
         }
     }
 
-    fun startLoadingLatestMeals(){
+    fun startLoadingSearchMeals(searchValue: String) {
         mView.showLoading()
-        MealsModel.getInstance().getLatestMeals()
+        MealsModel.getInstance().getSearchMeals(searchValue)
     }
 
     fun onStop(){
@@ -25,7 +26,7 @@ class LatestMealsPresenter constructor(val mView : LatestMealsView){
     }
 
     @Subscribe
-    fun onLatestMealsLoaded(event : RestApiEvents.LatestMealsDataLoadedEvent){
+    fun onSearchMealsLoaded(event : RestApiEvents.SearchMealsDataLoadedEvent){
         mView.dismissLoading()
         mView.displayMeals(event.meal)
     }

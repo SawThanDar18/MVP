@@ -4,5 +4,5 @@ interface MealData {
 
     fun getLatestMeals()
     fun getSearchMeals(searchValue: String)
-    fun getDetailMeals(value1 : String)
+    fun getDetailMeals(value : String)
 }

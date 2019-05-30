@@ -8,14 +8,19 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.mvp.R
 import com.example.mvp.data.Meal
-import com.example.mvp.mvp.presenters.LatestMealsPresenter
-import com.example.mvp.mvp.views.LatestMealsView
+import com.example.mvp.mvp.presenters.DetailMealsPresenter
+import com.example.mvp.mvp.views.DetailMealsView
 import com.example.mvp.ui.adapters.DetailAdapter
 import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.search_activity.*
 
-class DetailActivity : AppCompatActivity(), LatestMealsView {
+class DetailActivity : AppCompatActivity(), DetailMealsView {
 
-    private lateinit var presenter: LatestMealsPresenter
+    override fun displayMeals(meal: List<Meal>) {
+        adapter.setNewData(meal)
+    }
+
+    private lateinit var presenter: DetailMealsPresenter
     private lateinit var adapter: DetailAdapter
     private lateinit var text_detail : TextView
 
@@ -23,8 +28,12 @@ class DetailActivity : AppCompatActivity(), LatestMealsView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail_activity)
 
-        presenter = LatestMealsPresenter(this)
-        presenter.startLoadingLatestMeals()
+        val bundle : Bundle? = intent.extras
+        val value = bundle!!.getString("id")
+        val id : String = intent.getStringExtra("id")
+
+        presenter = DetailMealsPresenter(this)
+        presenter.startLoadingDetailMeals(value)
 
         adapter = DetailAdapter(this)
         rvMeals.adapter = adapter
@@ -32,18 +41,8 @@ class DetailActivity : AppCompatActivity(), LatestMealsView {
         rvMeals.layoutManager = GridLayoutManager(this, 1, GridLayout.VERTICAL, false)
 
         swipeRefresh.setOnRefreshListener {
-            presenter.startLoadingLatestMeals()
+            presenter.startLoadingDetailMeals(value)
         }
-
-        val bundle : Bundle? = intent.extras
-        val value1 = bundle!!.getString("id")
-        val id : String = intent.getStringExtra("id")
-
-        presenter.startLoadingDetailMeals(value1)
-    }
-
-    override fun displayMeals(meal: List<Meal>) {
-       adapter.setNewData(meal)
     }
 
     override fun showPrompt(message: String) {
@@ -70,5 +69,10 @@ class DetailActivity : AppCompatActivity(), LatestMealsView {
     override fun onStop() {
         super.onStop()
         presenter.onStop()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.startLoadingDetailMeals(value = "id")
     }
 }

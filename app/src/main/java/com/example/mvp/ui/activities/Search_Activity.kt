@@ -11,15 +11,16 @@ import com.example.mvp.ItemClickListener
 import com.example.mvp.R
 import com.example.mvp.data.Meal
 import com.example.mvp.mvp.presenters.LatestMealsPresenter
-import com.example.mvp.mvp.views.LatestMealsView
+import com.example.mvp.mvp.presenters.SearchMealsPresenter
+import com.example.mvp.mvp.views.SearchMealsView
 import com.example.mvp.network.MealDataImpl
 import com.example.mvp.ui.adapters.MealsAdapter
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.search_activity.*
 
-class Search_Activity : AppCompatActivity(), LatestMealsView, ItemClickListener {
+class Search_Activity : AppCompatActivity(), SearchMealsView, ItemClickListener {
 
-    private lateinit var presenter: LatestMealsPresenter
+    private lateinit var presenter: SearchMealsPresenter
     private lateinit var adapter: MealsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,8 +28,8 @@ class Search_Activity : AppCompatActivity(), LatestMealsView, ItemClickListener 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.search_activity)
 
-        presenter = LatestMealsPresenter(this)
-        presenter.startLoadingLatestMeals()
+        presenter = SearchMealsPresenter(this)
+        presenter.startLoadingSearchMeals(edittext.text.toString())
 
         adapter = MealsAdapter(this, this)
         rvMeals.adapter = adapter
@@ -36,7 +37,8 @@ class Search_Activity : AppCompatActivity(), LatestMealsView, ItemClickListener 
         rvMeals.layoutManager = GridLayoutManager(this, 2, VERTICAL, false) as RecyclerView.LayoutManager?
 
         swipeRefresh.setOnRefreshListener {
-            presenter.startLoadingLatestMeals()
+            val searchValue = edittext.text.toString()
+            presenter.startLoadingSearchMeals(searchValue)
         }
 
         search.setOnClickListener {
@@ -44,7 +46,12 @@ class Search_Activity : AppCompatActivity(), LatestMealsView, ItemClickListener 
             presenter.startLoadingSearchMeals(searchValue)
         }
 
-        MealDataImpl.getInstance().getDetailMeals(value1 = "id")
+        MealDataImpl.getInstance().getDetailMeals(value = "id")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.startLoadingSearchMeals(edittext.text.toString())
     }
 
     override fun displayMeals(meal: List<Meal>) {

@@ -1,5 +1,6 @@
 package com.example.mvp.network
 
+import android.widget.TextView
 import com.example.mvp.events.RestApiEvents
 import com.example.mvp.ui.activities.Search_Activity
 import com.example.mvp.ui.utils.AppConstant
@@ -77,8 +78,8 @@ open class MealDataImpl private constructor() : MealData{
 
     override fun getSearchMeals(searchValue: String) {
 
-        mealApi.getSearchMeals(searchValue).enqueue(object : Callback<LatestMealResponse> {
-            override fun onFailure(call: Call<LatestMealResponse>, t: Throwable) {
+        mealApi.getSearchMeals(searchValue).enqueue(object : Callback<SearchMealsResponse> {
+            override fun onFailure(call: Call<SearchMealsResponse>, t: Throwable) {
                 EventBus.getDefault()
                     .post(
                         RestApiEvents.ErrorInvokingAPIEvent(
@@ -87,13 +88,13 @@ open class MealDataImpl private constructor() : MealData{
                     )
             }
 
-            override fun onResponse(call: Call<LatestMealResponse>, response: Response<LatestMealResponse>) {
-                val latestMealResponse = response.body()
-                if (latestMealResponse != null && latestMealResponse.meal.isNotEmpty()) {
+            override fun onResponse(call: Call<SearchMealsResponse>, response: Response<SearchMealsResponse>) {
+                val searchMealsResponse = response.body()
+                if (searchMealsResponse != null && searchMealsResponse.meal.isNotEmpty()) {
                     EventBus.getDefault()
                         .post(
-                            RestApiEvents.LatestMealsDataLoadedEvent(
-                                latestMealResponse.meal
+                            RestApiEvents.SearchMealsDataLoadedEvent(
+                                searchMealsResponse.meal
                             )
                         )
                 } else {
@@ -109,9 +110,9 @@ open class MealDataImpl private constructor() : MealData{
         })
     }
 
-    override fun getDetailMeals(value1 : String) {
-        mealApi.getDetailMeals(value1).enqueue(object : Callback<LatestMealResponse>{
-            override fun onFailure(call: Call<LatestMealResponse>, t: Throwable) {
+     override fun getDetailMeals(value : String) {
+        mealApi.getDetailMeals(value).enqueue(object : Callback<DetailMealsResponse>{
+            override fun onFailure(call: Call<DetailMealsResponse>, t: Throwable) {
                 EventBus.getDefault()
                     .post(
                         RestApiEvents.ErrorInvokingAPIEvent(
@@ -120,13 +121,13 @@ open class MealDataImpl private constructor() : MealData{
                     )
             }
 
-            override fun onResponse(call: Call<LatestMealResponse>, response: Response<LatestMealResponse>) {
-                val latestMealResponse = response.body()
-                if (latestMealResponse != null && latestMealResponse.meal.isNotEmpty()) {
+            override fun onResponse(call: Call<DetailMealsResponse>, response: Response<DetailMealsResponse>) {
+                val detailMealsResponse = response.body()
+                if (detailMealsResponse != null && detailMealsResponse.meal.isNotEmpty()) {
                     EventBus.getDefault()
                         .post(
-                            RestApiEvents.LatestMealsDataLoadedEvent(
-                                latestMealResponse.meal
+                            RestApiEvents.DetailMealsDataLoadedEvent(
+                                detailMealsResponse.meal
                             )
                         )
                 } else {

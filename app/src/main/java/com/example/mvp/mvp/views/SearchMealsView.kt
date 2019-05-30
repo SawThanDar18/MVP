@@ -2,7 +2,7 @@ package com.example.mvp.mvp.views
 
 import com.example.mvp.data.Meal
 
-interface LatestMealsView {
+interface SearchMealsView {
     fun displayMeals(meal: List<Meal>)
     fun showPrompt(message : String)
     fun showLoading()
